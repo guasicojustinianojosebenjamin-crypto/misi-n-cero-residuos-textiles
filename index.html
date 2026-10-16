@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#176b50">
+<title>Misión: Cero Residuos Textiles</title>
+
+<style>
+:root{
+ --ink:#18352f;
+ --green:#176b50;
+ --mint:#dff7e9;
+ --lime:#d6f36a;
+ --cream:#fffaf0;
+ --coral:#ff826e;
+ --blue:#dceeff;
+ --purple:#eee4ff;
+ --shadow:0 14px 38px rgba(24,53,47,.12)
+}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:
+ radial-gradient(circle at 10% 0%,#e8f8e8 0,transparent 30%),
+ radial-gradient(circle at 100% 20%,#fff0dc 0,transparent 25%),
+ #f7f8f1;
+ color:var(--ink);
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ min-height:100vh
+}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1000px,100% - 30px);margin:0 auto;padding:22px 0 36px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.4px}
+.logo{
+ display:grid;place-items:center;width:44px;height:44px;
+ border-radius:14px;background:var(--lime);font-size:25px;
+ box-shadow:0 5px 0 #b4d747
+}
+.pill{font-size:12px;font-weight:800;background:#fff;border:1px solid #e5eadf;border-radius:999px;padding:9px 12px;color:#49635a}
+.screen{display:none;animation:rise .35s ease both}
+.screen.active{display:block}
+@keyframes rise{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.hero{
+ display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:center;
+ background:#fff;border:1px solid #e8eee3;border-radius:28px;
+ padding:clamp(22px,5vw,48px);box-shadow:var(--shadow);overflow:hidden
+}
+.eyebrow{
+ display:inline-flex;gap:7px;align-items:center;background:var(--mint);
+ color:var(--green);padding:8px 12px;border-radius:999px;
+ font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px
+}
+h1{font-size:clamp(34px,6vw,60px);line-height:.98;letter-spacing:-2.5px;margin:18px 0 16px}
+h1 span{color:var(--green)}
+p{line-height:1.6;color:#52665e}
+.hero p{font-size:16px;max-width:500px}
+
+/* Ilustración textil mejorada */
+.art{
+ min-height:310px;border-radius:24px;
+ background:linear-gradient(145deg,#dff7e9,#fff0c9 65%,#ffe1d9);
+ display:grid;place-items:center;position:relative;overflow:hidden;
+ isolation:isolate
+}
+.art:before,.art:after{
+ content:"";position:absolute;border-radius:50%;
+ background:#ffffff70;z-index:-1
+}
+.art:before{width:210px;height:210px;right:-45px;top:-50px}
+.art:after{width:150px;height:150px;left:-40px;bottom:-35px}
+.art-label{
+ position:absolute;top:17px;left:17px;z-index:3;
+ background:#ffffffd9;padding:9px 12px;border-radius:12px;
+ font-size:12px;font-weight:900;color:var(--green);
+ box-shadow:0 4px 14px #18352f10
+}
+.fabric-stack{position:relative;width:220px;height:180px;z-index:1}
+.fabric{
+ position:absolute;width:150px;height:105px;border:4px solid #fff;
+ border-radius:18px;box-shadow:0 10px 15px #18352f18;
+ transform:rotate(-12deg);transition:transform .3s
+}
+.art:hover .fabric.one{transform:rotate(-18deg) translate(-5px,3px)}
+.art:hover .fabric.two{transform:rotate(15deg) translate(4px,-5px)}
+.art:hover .fabric.three{transform:rotate(25deg) translate(6px,4px)}
+.fabric.one{background:#ff927c;left:18px;top:38px}
+.fabric.two{background:#d4ed65;left:53px;top:19px;transform:rotate(10deg)}
+.fabric.three{background:#9bc8ff;left:74px;top:54px;transform:rotate(20deg)}
+.thread{position:absolute;z-index:2;font-size:45px;right:8px;bottom:0;animation:bob 2s ease-in-out infinite}
+.floating{
+ position:absolute;z-index:2;display:grid;place-items:center;
+ width:49px;height:49px;background:#ffffffdc;border-radius:16px;
+ font-size:25px;box-shadow:0 8px 20px #18352f12;
+ animation:bob 2.5s ease-in-out infinite
+}
+.float-one{left:17px;top:83px}
+.float-two{right:18px;top:88px;animation-delay:.5s}
+.float-three{left:34px;bottom:20px;animation-delay:.9s}
+.art-caption{
+ position:absolute;bottom:17px;right:17px;z-index:3;
+ background:var(--green);color:white;padding:9px 12px;
+ border-radius:12px;font-size:11px;font-weight:900
+}
+@keyframes bob{50%{transform:translateY(-9px) rotate(8deg)}}
+
+.btn{
+ border:0;border-radius:14px;padding:14px 19px;font-weight:900;
+ transition:transform .15s,filter .15s;
+ display:inline-flex;align-items:center;justify-content:center;gap:8px
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.02)}
+.btn:active{transform:translateY(1px)}
+.primary{background:var(--green);color:white;box-shadow:0 5px 0 #0e4f3a}
+.secondary{background:#edf2eb;color:var(--ink)}
+.lime{background:var(--lime);color:var(--ink);box-shadow:0 4px 0 #b4d747}
+.note{font-size:12px!important;color:#738078!important;margin-top:16px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}
+.mini{
+ background:#ffffffd9;border:1px solid #e8eee3;border-radius:18px;
+ padding:18px;transition:transform .2s,box-shadow .2s
+}
+.mini:hover{transform:translateY(-4px);box-shadow:0 10px 24px #18352f10}
+.mini b{display:block;margin:7px 0 3px}
+.mini p{font-size:13px;margin:0}
+.mini-icon{
+ display:grid;place-items:center;width:45px;height:45px;
+ border-radius:14px;background:var(--mint);font-size:25px
+}
+.mini:nth-child(2) .mini-icon{background:#fff0d8}
+.mini:nth-child(3) .mini-icon{background:var(--purple)}
+.intro-extra{
+ margin-top:15px;padding:14px 17px;border-radius:17px;
+ background:#e8f5e7;border:1px solid #d8ead7;
+ display:flex;align-items:center;gap:12px;font-size:13px;
+ line-height:1.5;color:#355b48
+}
+.intro-extra .big{font-size:27px;flex-shrink:0}
+
+.game-card{background:#fff;border:1px solid #e8eee3;border-radius:26px;padding:clamp(18px,4vw,32px);box-shadow:var(--shadow)}
+.hud{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.leveltag{background:var(--purple);color:#5b4090;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.stat{background:#f4f7f1;border-radius:12px;padding:8px 11px;font-size:13px;font-weight:800}
+.timer-stat{background:#fff0ed;color:#a53d31}
+.timer-stat.urgent{background:#c93427;color:white;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.65}}
+.progress{height:9px;background:#edf1e8;border-radius:99px;overflow:hidden;margin:10px 0 24px}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#1d815c,#b4dc4d);transition:width .4s ease;border-radius:99px}
+.question-top{display:flex;align-items:center;gap:15px;margin-bottom:10px}
+.q-icon{width:58px;height:58px;display:grid;place-items:center;border-radius:18px;background:var(--mint);font-size:30px;flex-shrink:0}
+h2{font-size:clamp(23px,4vw,34px);letter-spacing:-.8px;margin:0 0 8px}
+.sub{margin:0 0 22px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.option{
+ min-height:78px;text-align:left;background:#fff;border:2px solid #e5ece3;
+ border-radius:17px;padding:14px;display:flex;align-items:center;gap:12px;
+ font-weight:750;color:var(--ink);transition:.15s
+}
+.option:hover{border-color:#8dbca1;background:#f7fff8}
+.letter{width:34px;height:34px;flex-shrink:0;border-radius:11px;display:grid;place-items:center;background:#f0f4ec;font-weight:900}
+.option.correct{border-color:#2d9c68;background:#e5f8ed}
+.option.wrong{border-color:#ed7665;background:#fff0ed}
+.option:disabled{cursor:default}
+.feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:15px;line-height:1.5;font-size:14px}
+.feedback.show{display:block;animation:rise .2s ease}
+.feedback.good{background:#e5f8ed;color:#185f40}
+.feedback.bad{background:#fff0ed;color:#8a352b}
+.bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;flex-wrap:wrap}
+.bottom-actions{display:flex;gap:9px;flex-wrap:wrap}
+.tip{font-size:12px;color:#728078}
+
+.finish{text-align:center;padding:clamp(22px,6vw,50px)}
+.medal{font-size:70px;animation:bob 2s infinite}
+.score-big{font-size:clamp(48px,10vw,76px);font-weight:950;letter-spacing:-3px;color:var(--green);margin:8px 0}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+.result{background:#f4f7f1;border-radius:16px;padding:16px}
+.result strong{display:block;font-size:24px}
+.result span{font-size:12px;color:#65756d}
+.review{text-align:left;background:#f8faf5;border-radius:16px;padding:16px;margin:16px 0}
+.review p{margin:5px 0;font-size:14px}
+.finish-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+footer{text-align:center;font-size:12px;color:#829087;padding:20px 0 0}
+.confetti{position:fixed;top:-20px;font-size:22px;pointer-events:none;z-index:10;animation:fall 2.5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:0}}
+
+@media(max-width:700px){
+ .hero{grid-template-columns:1fr}
+ .art{min-height:235px;grid-row:1}
+ .fabric-stack{transform:scale(.85)}
+ h1{letter-spacing:-1.5px}
+ .how{grid-template-columns:1fr}
+ .options{grid-template-columns:1fr}
+ .option{min-height:66px}
+ .result-grid{grid-template-columns:1fr 1fr}
+ .result:last-child{grid-column:span 2}
+ .top{align-items:flex-start}
+ .pill{max-width:48%;text-align:center}
+ .bottom-actions{width:100%}
+ .bottom-actions .btn{flex:1}
+ .finish-actions .btn{flex:1}
+ .intro-extra{align-items:flex-start}
+}
+@media(max-width:390px){
+ .wrap{width:calc(100% - 20px);padding-top:14px}
+ .game-card{padding:15px}
+ .stats{gap:5px}
+ .stat{font-size:11px;padding:8px}
+ .bottom-actions .btn{padding:12px 9px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header class="top">
+ <div class="brand">
+  <div class="logo">♻️</div>
+  <div>MINI LAB <span style="color:#6c8175">/ TEXTIL</span></div>
+ </div>
+ <div class="pill">♻️ Aprende · Reutiliza · Crea</div>
+</header>
+
+<!-- MENÚ PRINCIPAL -->
+<section id="intro" class="screen active">
+ <div class="hero">
+  <div>
+   <div class="eyebrow">🎮 Reto interactivo</div>
+   <h1>Misión:<br><span>Cero Residuos</span> Textiles</h1>
+   <p>¡El microtaller necesita tu ayuda! Después de cortar poleras y otras prendas quedan retazos de tela. Tu misión es descubrir cómo aprovecharlos y reducir lo que se desecha.</p>
+   <button class="btn primary" onclick="startGame()">Comenzar misión <span>→</span></button>
+   <p class="note">♻️ 3 niveles · 8 desafíos · Puntaje máximo: 800 puntos</p>
+  </div>
+
+  <div class="art" aria-label="Ilustración de retazos de tela reciclados">
+   <div class="art-label">♻️ ¡Dales otra vida!</div>
+   <div class="floating float-one">🌱</div>
+   <div class="floating float-two">👕</div>
+   <div class="floating float-three">✨</div>
+   <div class="fabric-stack">
+    <div class="fabric one"></div>
+    <div class="fabric two"></div>
+    <div class="fabric three"></div>
+    <div class="thread">🧵</div>
+   </div>
+   <div class="art-caption">CREA · REUTILIZA · RECICLA</div>
+  </div>
+ </div>
+
+ <div class="how">
+  <div class="mini">
+   <div class="mini-icon">🔎</div>
+   <b>1. Identifica</b>
+   <p>Reconoce los residuos que quedan en el taller.</p>
+  </div>
+  <div class="mini">
+   <div class="mini-icon">💡</div>
+   <b>2. Reutiliza</b>
+   <p>Piensa en productos útiles para darles otra vida.</p>
+  </div>
+  <div class="mini">
+   <div class="mini-icon">🏆</div>
+   <b>3. Supera el reto</b>
+   <p>Responde, gana puntos y comprueba lo aprendido.</p>
+  </div>
+ </div>
+
+ <div class="intro-extra">
+  <span class="big">🌎</span>
+  <div><b>¡Tu misión importa!</b><br>
+  Cada respuesta te ayudará a descubrir nuevas formas de reducir los residuos textiles. ¿Podrás conseguir los 800 puntos?</div>
+ </div>
+</section>
+
+<!-- PARTIDA -->
+<section id="game" class="screen">
+ <div class="game-card">
+  <div class="hud">
+   <div class="leveltag" id="levelTag">NIVEL 1 · DETECTIVES</div>
+   <div class="stats">
+    <div class="stat">⭐ Puntos: <span id="score">0</span></div>
+    <div class="stat">🧩 Reto <span id="counter">1/8</span></div>
+    <div class="stat timer-stat" id="timerStat">⏱️ Tiempo: <span id="timer">01:00</span></div>
+   </div>
+  </div>
+
+  <div class="progress"><div class="bar" id="bar"></div></div>
+
+  <div class="question-top">
+   <div class="q-icon" id="qIcon">🔎</div>
+   <div>
+    <h2 id="question">Pregunta</h2>
+    <p class="sub" id="subtitle">Elige la mejor respuesta.</p>
+   </div>
+  </div>
+
+  <div class="options" id="options"></div>
+  <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+
+  <div class="bottom">
+   <span class="tip" id="tip">💡 Lee con atención antes de elegir.</span>
+
+   <div class="bottom-actions">
+    <button class="btn secondary" onclick="restartGame()">↻ Reiniciar partida</button>
+    <button class="btn secondary" onclick="showIntro()">⌂ Volver al menú</button>
+    <button id="nextBtn" class="btn lime" style="display:none" onclick="nextQuestion()">Siguiente reto →</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- RESULTADOS -->
+<section id="finish" class="screen">
+ <div class="game-card finish">
+  <div class="medal" id="medal">🏆</div>
+  <div class="eyebrow">Misión completada</div>
+  <h2 id="finishTitle" style="font-size:clamp(30px,5vw,44px);margin-top:16px">¡Buen trabajo!</h2>
+  <p id="finishText">Ayudaste al taller a pensar de forma más sostenible.</p>
+
+  <div class="score-big">
+   <span id="finalScore">0</span>
+   <span style="font-size:24px;color:#7d8c82"> / 800</span>
+  </div>
+
+  <div class="result-grid">
+   <div class="result"><strong id="correctCount">0/8</strong><span>Respuestas correctas</span></div>
+   <div class="result"><strong id="percent">0%</strong><span>Precisión</span></div>
+   <div class="result"><strong id="rank">Aprendiz</strong><span>Tu rango ecológico</span></div>
+  </div>
+
+  <div class="review">
+   <b>🌱 Lo que aprendimos</b>
+   <p>Los retazos textiles no siempre son basura: se pueden clasificar, reutilizar, transformar en productos pequeños o entregar para reciclaje cuando exista una opción adecuada. Lo mejor es planificar los cortes y reducir los sobrantes desde el inicio.</p>
+  </div>
+
+  <div class="finish-actions">
+   <button class="btn primary" onclick="restartGame()">↻ Jugar de nuevo</button>
+   <button class="btn secondary" onclick="showIntro()">⌂ Volver al menú</button>
+  </div>
+ </div>
+</section>
+
+<footer>Proyecto educativo · Aprovechamiento de residuos de un microtaller de confección textil</footer>
+</div>
+
+<script>
+const questions = [
+ {level:1,tag:"NIVEL 1 · DETECTIVES",icon:"✂️",q:"¿Qué son los retazos textiles?",sub:"Identifica el residuo principal del proyecto.",opts:["Pedazos de tela que sobran al cortar prendas","Botones nuevos listos para vender","Máquinas usadas para coser","Prendas terminadas y empaquetadas"],correct:0,why:"¡Exacto! Los retazos son pedazos de tela que quedan después de cortar las piezas para confeccionar prendas."},
+ {level:1,tag:"NIVEL 1 · DETECTIVES",icon:"🧺",q:"¿Qué conviene hacer primero con los retazos?",sub:"Antes de reutilizar, hay que organizarse.",opts:["Mezclarlos todos con la basura","Quemarlos para liberar espacio","Separarlos por tipo, tamaño y estado","Mojarlos para que pesen más"],correct:2,why:"Clasificarlos ayuda a reconocer qué se puede reutilizar, qué se puede reciclar y qué necesita otro manejo."},
+ {level:2,tag:"NIVEL 2 · IDEAS CREATIVAS",icon:"🧵",q:"Un retazo grande y resistente puede convertirse en…",sub:"Elige una idea realista de aprovechamiento.",opts:["Una botella de vidrio","Una bolsa reutilizable pequeña","Un teléfono celular","Un rollo de cinta adhesiva"],correct:1,why:"¡Buena idea! Con tela resistente se pueden confeccionar bolsitas, estuches o bolsas reutilizables, según el tamaño y la calidad."},
+ {level:2,tag:"NIVEL 2 · IDEAS CREATIVAS",icon:"🪡",q:"¿Qué se podría hacer con retazos pequeños de varios colores?",sub:"Piensa como una persona creativa del taller.",opts:["Tirarlos sin revisarlos","Usarlos todos como combustible","Guardarlos mezclados para siempre","Crear parches, accesorios o piezas decorativas"],correct:3,why:"Los pedazos pequeños pueden servir para parches, adornos, llaveros textiles o trabajos de patchwork, según el material."},
+ {level:2,tag:"NIVEL 2 · IDEAS CREATIVAS",icon:"🧠",q:"¿Cuál es una buena razón para aprovechar los sobrantes?",sub:"Conecta la idea con el objetivo del proyecto.",opts:["Generar más desperdicio","Reducir residuos y aprovechar materiales","Obligar a comprar más tela","Hacer más difícil el trabajo"],correct:1,why:"Aprovechar materiales puede reducir lo que se desecha y, si el producto tiene utilidad, abrir oportunidades de ahorro o ingreso."},
+ {level:3,tag:"NIVEL 3 · JEFE FINAL",icon:"📐",q:"¿Qué acción ayuda a producir menos retazos desde el principio?",sub:"La sostenibilidad también empieza antes de cortar.",opts:["Cortar sin medir","Comprar tela sin planificar","Planificar el patrón y acomodar bien las piezas","Desechar los primeros cortes"],correct:2,why:"Planificar los moldes y acomodar las piezas de forma eficiente ayuda a reducir sobrantes antes de que aparezcan."},
+ {level:3,tag:"NIVEL 3 · JEFE FINAL",icon:"♻️",q:"Si un retazo ya no sirve para confeccionar otro producto, ¿qué conviene hacer?",sub:"La solución depende del material y las opciones disponibles.",opts:["Evaluar si puede reciclarse o gestionarse correctamente","Arrojarlo siempre a la calle","Mezclarlo con comida","Quemarlo en cualquier lugar"],correct:0,why:"Hay que revisar las opciones locales de reciclaje o gestión. Quemar o abandonar residuos puede causar contaminación."},
+ {level:3,tag:"NIVEL 3 · JEFE FINAL",icon:"🌎",q:"¿Cuál sería el mejor resultado para el microtaller?",sub:"Elige la solución más completa.",opts:["Producir más sobrantes cada día","Guardar todos los retazos sin usarlos","Usar solo una parte y botar el resto sin separar","Reducir sobrantes, reutilizar lo posible y gestionar lo restante"],correct:3,why:"¡Misión ecológica! Lo ideal es prevenir residuos, reutilizar materiales útiles y buscar una gestión adecuada para lo que no se pueda aprovechar."}
+];
+
+let index=0, score=0, correct=0, answered=false;
+let timerInterval=null;
+let timeLeft=60;
+
+const $=id=>document.getElementById(id);
+
+function stopTimer(){
+ if(timerInterval!==null){
+  clearInterval(timerInterval);
+  timerInterval=null;
+ }
+}
+
+function show(id){
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ $(id).classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function startGame(){
+ stopTimer();
+ index=0;
+ score=0;
+ correct=0;
+ show('game');
+ renderQuestion();
+}
+
+function restartGame(){
+ startGame();
+}
+
+function showIntro(){
+ stopTimer();
+ show('intro');
+}
+
+function startTimer(){
+ stopTimer();
+ timeLeft=60;
+ updateTimerDisplay();
+
+ timerInterval=setInterval(()=>{
+  if(answered){
+   stopTimer();
+   return;
+  }
+
+  timeLeft--;
+  updateTimerDisplay();
+
+  if(timeLeft<=0){
+   timeExpired();
+  }
+ },1000);
+}
+
+function updateTimerDisplay(){
+ $('timer').textContent='00:'+String(Math.max(0,timeLeft)).padStart(2,'0');
+ $('timerStat').classList.toggle('urgent',timeLeft<=10);
+}
+
+function timeExpired(){
+ if(answered)return;
+
+ answered=true;
+ stopTimer();
+
+ const q=questions[index];
+ const buttons=[...document.querySelectorAll('.option')];
+
+ buttons.forEach((b,i)=>{
+  b.disabled=true;
+  if(i===q.correct)b.classList.add('correct');
+ });
+
+ const fb=$('feedback');
+ fb.className='feedback show bad';
+ fb.innerHTML='⏰ <b>¡Se acabó el tiempo!</b><br>'+
+  'No respondiste dentro de los 60 segundos. '+q.why;
+
+ $('bar').style.width=((index+1)/questions.length*100)+'%';
+ $('tip').textContent='El tiempo terminó. Puedes continuar al siguiente reto.';
+ $('nextBtn').style.display='inline-flex';
+ $('nextBtn').textContent=index===questions.length-1?'Ver resultado 🏆':'Siguiente reto →';
+}
+
+function renderQuestion(){
+ stopTimer();
+ answered=false;
+
+ const q=questions[index];
+
+ $('levelTag').textContent=q.tag;
+ $('score').textContent=score;
+ $('counter').textContent=(index+1)+'/'+questions.length;
+ $('bar').style.width=(index/questions.length*100)+'%';
+ $('qIcon').textContent=q.icon;
+ $('question').textContent=q.q;
+ $('subtitle').textContent=q.sub;
+ $('feedback').className='feedback';
+ $('feedback').textContent='';
+ $('nextBtn').style.display='none';
+ $('tip').textContent='💡 Lee con atención antes de elegir.';
+
+ const letters=['A','B','C','D'];
+ $('options').innerHTML='';
+
+ q.opts.forEach((opt,i)=>{
+  const b=document.createElement('button');
+  b.className='option';
+  b.innerHTML='<span class="letter">'+letters[i]+'</span><span>'+opt+'</span>';
+  b.onclick=()=>choose(i,b);
+  $('options').appendChild(b);
+ });
+
+ startTimer();
+}
+
+function choose(choice,button){
+ if(answered)return;
+
+ answered=true;
+ stopTimer();
+
+ const q=questions[index];
+ const buttons=[...document.querySelectorAll('.option')];
+
+ buttons.forEach((b,i)=>{
+  b.disabled=true;
+  if(i===q.correct)b.classList.add('correct');
+ });
+
+ const fb=$('feedback');
+
+ if(choice===q.correct){
+  score+=100;
+  correct++;
+  fb.className='feedback show good';
+  fb.innerHTML='✅ <b>¡Correcto! +100 puntos</b><br>'+q.why;
+  button.classList.add('correct');
+ }else{
+  fb.className='feedback show bad';
+  fb.innerHTML='❌ <b>No exactamente.</b><br>'+q.why;
+  button.classList.add('wrong');
+ }
+
+ $('score').textContent=score;
+ $('bar').style.width=((index+1)/questions.length*100)+'%';
+ $('tip').textContent=choice===q.correct
+  ?'¡Bien hecho! Sigue avanzando.'
+  :'¡Aprender también es parte del juego!';
+
+ $('nextBtn').style.display='inline-flex';
+ $('nextBtn').textContent=index===questions.length-1
+  ?'Ver resultado 🏆'
+  :'Siguiente reto →';
+}
+
+function nextQuestion(){
+ if(!answered)return;
+
+ stopTimer();
+ index++;
+
+ if(index>=questions.length){
+  finishGame();
+  return;
+ }
+
+ renderQuestion();
+}
+
+function finishGame(){
+ stopTimer();
+ show('finish');
+
+ $('finalScore').textContent=score;
+ $('correctCount').textContent=correct+'/'+questions.length;
+ $('percent').textContent=Math.round(correct/questions.length*100)+'%';
+
+ let rank,title,desc,medal;
+
+ if(score>=700){
+  rank='Héroe textil';
+  title='¡Sos un héroe textil!';
+  desc='Tus decisiones ayudan a imaginar un taller con menos residuos.';
+  medal='🏆';
+ }else if(score>=500){
+  rank='Agente verde';
+  title='¡Excelente misión!';
+  desc='Ya tienes buenas ideas para aprovechar los retazos. ¡Sigue practicando!';
+  medal='🌟';
+ }else if(score>=300){
+  rank='Aprendiz creativo';
+  title='¡Vas por buen camino!';
+  desc='Cada respuesta te ayuda a pensar en nuevas formas de reducir residuos.';
+  medal='🧵';
+ }else{
+  rank='Aprendiz ecológico';
+  title='¡Misión completada!';
+  desc='Ahora conoces más sobre los residuos textiles. Puedes volver a jugar para mejorar tu puntaje.';
+  medal='🌱';
+ }
+
+ $('rank').textContent=rank;
+ $('finishTitle').textContent=title;
+ $('finishText').textContent=desc;
+ $('medal').textContent=medal;
+
+ confetti();
+}
+
+function confetti(){
+ const pieces=['🎉','🌿','🧵','✨','♻️'];
+
+ for(let i=0;i<24;i++){
+  const el=document.createElement('div');
+  el.className='confetti';
+  el.textContent=pieces[Math.floor(Math.random()*pieces.length)];
+  el.style.left=Math.random()*100+'vw';
+  el.style.animationDelay=Math.random()*.8+'s';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),3500);
+ }
+}
+</script>
+</body>
+</html>
